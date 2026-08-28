@@ -37,17 +37,19 @@ The demo remains isolated: `demo:` session storage only, a persistent banner,
 
 ## Deploy and live recheck
 
-Static deployment is triggered by pushing `main`; the factory deploys
-`dist/site`. After the push, re-run:
+Deployed `dist/site` with `/opt/fleet/lib/deploy-static.sh trajectory-test-cases
+dist/site`. Azure Static Web Apps deployment
+`67ea833c-8ab3-4dae-9834-cfb86275f7ab` succeeded; the custom domain is Ready.
 
-```sh
-npm run verify:url -- https://trajectory-test-cases.sociobot.in
-PLAYWRIGHT_BASE_URL=https://trajectory-test-cases.sociobot.in npx playwright test
-```
-
-Then cold-open `https://trajectory-test-cases.sociobot.in/demo/?demo=1` at
-390 × 844 and verify the banner, `docs.search`, `report.write`, and `PASS` are
-all visible without scrolling.
+- `npm run verify:url -- https://trajectory-test-cases.sociobot.in` passed for
+  home, demo, Privacy, Terms, and a real HTTP 404 with no actionable console
+  errors.
+- `PLAYWRIGHT_BASE_URL=https://trajectory-test-cases.sociobot.in npx playwright
+  test` passed 18/18, including privacy, offline, Axe, metadata, focus, and
+  mobile checks.
+- Cold 390 × 844 live entry verified the banner, two `docs.search` rows,
+  `report.write`, and `PASS` before scrolling. Evidence:
+  `evidence/polish-2-live-mobile-demo.png`.
 
 ## Known gaps
 

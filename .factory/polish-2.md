@@ -16,7 +16,7 @@ the one newly open finding.
 | F-1-3 | Retained the shared wordmark/nav/footer/legal links/build ID and direct-load/back heading focus with polite route announcement. | `route navigation and browser back restore heading focus`; route skeleton tests; live URL verification. |
 | F-1-4 | Retained verb-named fixture controls. | `homepage is accessible and interactive`; `demo is accessible, keyboard operable, and usable at 390px`; live demo check. |
 | F-1-5 | Retained literal section headings, `Check agent calls in three steps` and `Four library tools`. | Exact-copy checks in `homepage is accessible and interactive`; `.factory/copy-audit.md`; live landing check. |
-| F-2-1 | Added a compact, read-only mobile evidence strip immediately below the demo intro. It renders the real loaded sample verdict and event tools, and changes with the matcher result. Reduced the mobile intro rhythm so the full strip fits the first 390 × 844 viewport. | `demo is accessible, keyboard operable, and usable at 390px` asserts seeded `docs.search`, visible `PASS`, and `#mobile-sample` ending within 844px. Screenshot: `evidence/polish-2-mobile-demo.png`. Live URL: <https://trajectory-test-cases.sociobot.in/demo/?demo=1>. |
+| F-2-1 | Added a compact, read-only mobile evidence strip immediately below the demo intro. It renders the real loaded sample verdict and event tools, and changes with the matcher result. Reduced the mobile intro rhythm so the full strip fits the first 390 × 844 viewport. | `demo is accessible, keyboard operable, and usable at 390px` asserts seeded `docs.search`, visible `PASS`, and `#mobile-sample` ending within 844px. Live screenshot: `evidence/polish-2-live-mobile-demo.png`. Live URL: <https://trajectory-test-cases.sociobot.in/demo/?demo=1>. |
 
 ## Verification summary
 
@@ -29,5 +29,5 @@ the one newly open finding.
   offline reload, and local-only demo behavior.
 - The initial static bundle remains small: app JS is 3.56 kB gzip and CSS is
   4.21 kB gzip.
-- Deployment and final cold live recheck are recorded in `.factory/handoff.md`
-  after pushing `main`.
+- Factory static deployment `67ea833c-8ab3-4dae-9834-cfb86275f7ab` succeeded.
+  The live URL verifier passed and the external browser suite passed 18/18.
