@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" data-demo="true">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F3F0E6" />
+    <meta name="description" content="Try a passing agent trajectory fixture with isolated sample data." />
+    <title>Demo — Trajectory Test Cases</title>
+    <link rel="canonical" href="https://trajectory-test-cases.sociobot.in/demo/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <script>document.documentElement.dataset.theme=sessionStorage.getItem("demo:ttc-theme")||"light"</script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="offline" id="offline" role="status" hidden>You’re offline. The checker still runs locally.</div>
+    <aside class="demo-banner" aria-label="Demo controls">
+      <strong>Demo — sample data, nothing is saved</strong>
+      <div><button id="reset-demo" type="button">Reset demo</button><a id="leave-demo" href="/">Start for real</a></div>
+    </aside>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Trajectory Test Cases home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Trajectory<br />Test Cases</span></a>
+      <nav aria-label="Primary navigation"><a href="/">Home</a><a href="/privacy/">Privacy</a><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme"><span aria-hidden="true">◐</span> Theme</button></nav>
+    </header>
+    <main id="main">
+      <section class="demo-intro" aria-labelledby="demo-title">
+        <p class="eyebrow"><span>01</span> Isolated sample</p>
+        <h1 id="demo-title">Test a sample agent tool path.</h1>
+        <p>A passing trace is loaded below. Change an event to see the exact mismatch.</p>
+      </section>
+      <section class="playground section-grid demo-playground" id="playground" aria-labelledby="playground-title">
+        <div class="section-intro">
+          <p class="eyebrow"><span>02</span> Local trace bench</p>
+          <h2 id="playground-title">Run the fixture.<br />Read the evidence.</h2>
+          <p>This sample uses two searches followed by one report write.</p>
+          <div class="example-buttons" aria-label="Load an example">
+            <button type="button" data-example="pass" aria-pressed="true">Passing trace</button>
+            <button type="button" data-example="missing" aria-pressed="false">Missing call</button>
+            <button type="button" data-example="order" aria-pressed="false">Wrong order</button>
+            <button type="button" data-example="empty" aria-pressed="false">Empty trace</button>
+          </div>
+        </div>
+        <div class="bench">
+          <div class="editors">
+            <div class="editor-block"><div class="editor-head"><label for="fixture-input">Fixture</label><span>fixture.json</span></div><textarea id="fixture-input" spellcheck="false" aria-describedby="fixture-help"></textarea><span class="visually-hidden" id="fixture-help">JSON fixture defining expected and forbidden tool actions.</span></div>
+            <div class="editor-block"><div class="editor-head"><label for="events-input">Observed</label><span>events.json</span></div><textarea id="events-input" spellcheck="false" aria-describedby="events-help"></textarea><span class="visually-hidden" id="events-help">JSON array of already scrubbed tool events.</span></div>
+          </div>
+          <div class="run-bar"><p>The check sends no trace data. The same input returns the same verdict.</p><button class="run-button" id="run-check" type="button"><span aria-hidden="true">▶</span> Run fixture</button></div>
+          <section class="trace-panel" aria-labelledby="trace-title"><div class="trace-head"><h3 id="trace-title">Inspection trace</h3><span id="trace-status" class="status pass" tabindex="-1">PASS</span></div><div id="trace-output" class="trace-output" aria-live="polite" aria-atomic="true"></div></section>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Trajectory<br />Test Cases</span></a>
+      <p>Deterministic checks for agent tool paths.<br />Built by <a href="https://sociobot.in">Sociobot</a>.</p>
+      <nav aria-label="Footer navigation"><a href="https://github.com/B-Divyesh/sf-trajectory-test-cases">GitHub</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+    </footer>
+    <script type="module" src="/src/app.ts"></script>
+  </body>
+</html>

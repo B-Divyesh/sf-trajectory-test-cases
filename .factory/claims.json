@@ -1,0 +1,58 @@
+[
+  {
+    "id": "demo-sandbox",
+    "claim": "Try a passing sample in one click without changing real workspace data.",
+    "where": "landing first screen, demo banner, README",
+    "test": "npm run test:claims -- --grep @claim:demo-sandbox",
+    "sandbox": "fresh browser context; open the landing action; edit, reset, and leave the demo; assert only demo-prefixed session keys exist"
+  },
+  {
+    "id": "local-privacy",
+    "claim": "The browser checker sends no trace data and loads no third-party runtime resources.",
+    "where": "landing facts, playground, privacy page, README",
+    "test": "npm run test:claims -- --grep @claim:local-privacy",
+    "sandbox": "fresh browser context; enter a marker in both editors; monitor the whole run and assert zero run-time requests and same-origin loaded resources"
+  },
+  {
+    "id": "deterministic-verdict",
+    "claim": "The same fixture and events return the same verdict.",
+    "where": "landing playground, demo playground, README",
+    "test": "npm run test:claims -- --grep @claim:deterministic-verdict",
+    "sandbox": "fresh demo; run the unchanged passing fixture twice and compare the complete rendered trace"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "The demo works offline after the first visit.",
+    "where": "offline status, README",
+    "test": "npm run test:claims -- --grep @claim:offline-reload",
+    "sandbox": "fresh browser context; load /demo/, wait for service-worker control, go offline, reload, and run the fixture"
+  },
+  {
+    "id": "matcher-rules",
+    "claim": "Fixtures check required calls, counts, partial ordering, forbidden actions, and unmatched events; retry faults repeat after reset.",
+    "where": "landing page, README",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:matcher-rules",
+    "sandbox": "one fixed fixture; assert a passing trace and missing, wrong-order, forbidden, and unexpected mutations"
+  },
+  {
+    "id": "recorder-scrubbing",
+    "claim": "The recorder stores scrubber output instead of raw tool arguments and omits unscrubbed results.",
+    "where": "landing page, privacy page, README",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:recorder-scrubbing",
+    "sandbox": "record an argument containing a unique secret and assert the saved trace contains only the selected scrubbed field"
+  },
+  {
+    "id": "package-contract",
+    "claim": "The MIT package ships ESM, CommonJS, TypeScript declarations, a JSON Schema, zero runtime dependencies, and no network client.",
+    "where": "landing first screen, privacy page, README",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:package-contract",
+    "sandbox": "clean built package; import ESM and CommonJS and inspect declarations, schema, license, and dependency metadata"
+  },
+  {
+    "id": "cli-contract",
+    "claim": "The CLI emits JSON and returns exit codes 0, 1, and 2 for pass, mismatch, and invalid input.",
+    "where": "landing page, README",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:cli-contract",
+    "sandbox": "temporary fixture files; execute the built CLI with passing, mismatching, and malformed event data"
+  }
+]

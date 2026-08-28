@@ -1,14 +1,19 @@
 # Trajectory Test Cases
 
-Deterministic path assertions for tool-calling agents. Describe the calls that
-must happen, the order constraints that matter, and actions that must never
-happen—without snapshotting a whole transcript or asking another model to judge
-it.
+Test required agent tool calls, retries, and ordering with deterministic
+fixtures built for CI.
 
-Trajectory Test Cases is for engineers running model-agnostic agent tests in CI.
-It records only scrubbed arguments, injects repeatable retry faults, and prints a
-compact failure trace. A passing fixture proves only the declared path
-invariants; it does **not** prove response quality, correctness, or safety.
+Trajectory Test Cases is for engineers testing tool-calling agents in CI. It
+records scrubbed arguments, injects repeatable retry faults, and prints the
+exact mismatch. A passing fixture proves only the declared path invariants. It
+does **not** prove response quality, correctness, or safety.
+
+## Try the demo
+
+Open the [sample-data demo](https://trajectory-test-cases.sociobot.in/demo/).
+It loads a passing fixture in one click. Demo edits use isolated `demo:` session
+storage and are discarded when you leave. The checker sends no trace data. The
+demo also reloads offline after the first visit.
 
 ## Install
 
@@ -95,8 +100,8 @@ actions are checked independently. Set `allowUnmatched` to `false` to catch any
 extra events; result/error bookkeeping is ignored by default when all declared
 expectations target calls.
 
-The recorder requires `scrubArgs`; raw tool arguments are never stored. Result
-payloads are omitted unless you also provide `scrubResult`.
+The recorder requires `scrubArgs` and stores only its output. Result payloads
+are omitted unless you also provide `scrubResult`.
 
 Editors and validators can load the published JSON Schema from
 `trajectory-test-cases/fixture.schema.json`.
@@ -124,9 +129,10 @@ npm run build:site     # landing page only -> ./dist/site
 npm pack --dry-run
 ```
 
-The live documentation and local-only trace playground are at
-<https://trajectory-test-cases.sociobot.in>. The playground sends no data and
-stores nothing. See [CHANGELOG.md](CHANGELOG.md) for releases.
+The live documentation and local trace playground are at
+<https://trajectory-test-cases.sociobot.in>. Demo changes stay in isolated
+session storage and are discarded when you leave. See
+[CHANGELOG.md](CHANGELOG.md) for releases.
 
 ## Deploy
 

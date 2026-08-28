@@ -31,6 +31,9 @@ const traces: Record<string, ToolEvent[]> = {
   empty: [],
 };
 
+const demoMode = window.location.pathname === "/demo" || window.location.pathname.startsWith("/demo/");
+const demoStorageKey = "demo:ttc-workspace";
+
 function required<T extends Element>(selector: string): T {
   const element = document.querySelector<T>(selector);
   if (!element) throw new Error(`Required control is missing: ${selector}`);
@@ -43,8 +46,36 @@ const output = required<HTMLElement>("#trace-output");
 const status = required<HTMLElement>("#trace-status");
 const runButton = required<HTMLButtonElement>("#run-check");
 
-fixtureInput.value = JSON.stringify(fixture, null, 2);
-eventsInput.value = JSON.stringify(traces.missing, null, 2);
+function seed(example: keyof typeof traces): void {
+  fixtureInput.value = JSON.stringify(fixture, null, 2);
+  eventsInput.value = JSON.stringify(traces[example], null, 2);
+  document.querySelectorAll<HTMLButtonElement>("[data-example]").forEach((item) => {
+    item.setAttribute("aria-pressed", String(item.dataset.example === example));
+  });
+}
+
+function restoreDemo(): boolean {
+  if (!demoMode) return false;
+  try {
+    const saved = sessionStorage.getItem(demoStorageKey);
+    if (!saved) return false;
+    const workspace = JSON.parse(saved) as { fixture?: unknown; events?: unknown };
+    if (typeof workspace.fixture !== "string" || typeof workspace.events !== "string") return false;
+    fixtureInput.value = workspace.fixture;
+    eventsInput.value = workspace.events;
+    return true;
+  } catch {
+    sessionStorage.removeItem(demoStorageKey);
+    return false;
+  }
+}
+
+function saveDemo(): void {
+  if (!demoMode) return;
+  sessionStorage.setItem(demoStorageKey, JSON.stringify({ fixture: fixtureInput.value, events: eventsInput.value }));
+}
+
+if (!restoreDemo()) seed(demoMode ? "pass" : "missing");
 
 function escapeText(value: string): string {
   const node = document.createElement("span");
@@ -74,6 +105,7 @@ function run(): void {
     const message = error instanceof Error ? error.message : String(error);
     output.innerHTML = `<div class="trace-error" role="alert"><strong>Could not run this fixture.</strong><span>${escapeText(message)}</span><span>Fix the JSON or load a known example.</span></div>`;
   }
+  saveDemo();
 }
 
 runButton.addEventListener("click", run);
@@ -84,6 +116,20 @@ document.querySelectorAll<HTMLButtonElement>("[data-example]").forEach((button) 
     document.querySelectorAll<HTMLButtonElement>("[data-example]").forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
     run();
   });
+});
+
+fixtureInput.addEventListener("input", saveDemo);
+eventsInput.addEventListener("input", saveDemo);
+
+document.querySelector<HTMLButtonElement>("#reset-demo")?.addEventListener("click", () => {
+  sessionStorage.removeItem(demoStorageKey);
+  seed("pass");
+  run();
+  status.focus();
+});
+
+document.querySelector<HTMLAnchorElement>("#leave-demo")?.addEventListener("click", () => {
+  sessionStorage.removeItem(demoStorageKey);
 });
 
 document.querySelectorAll<HTMLButtonElement>("[data-copy], [data-copy-target]").forEach((button) => {
@@ -105,7 +151,7 @@ themeToggle?.setAttribute("aria-label", `Switch to ${document.documentElement.da
 themeToggle?.addEventListener("click", () => {
   const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
   document.documentElement.dataset.theme = next;
-  localStorage.setItem("ttc-theme", next);
+  (demoMode ? sessionStorage : localStorage).setItem(demoMode ? "demo:ttc-theme" : "ttc-theme", next);
   themeToggle.setAttribute("aria-label", `Switch to ${next === "dark" ? "light" : "dark"} theme`);
 });
 

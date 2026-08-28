@@ -40,6 +40,22 @@ test("mobile layout remains usable at 390px", async ({ page }) => {
   expect(overflow).toBe(false);
 });
 
+test("demo is accessible, keyboard operable, and usable at 390px", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/demo/");
+  await expect(page.locator("h1")).toHaveText("Test a sample agent tool path.");
+  await expect(page.locator("#trace-status")).toHaveText("PASS");
+  await page.getByRole("button", { name: "Missing call" }).focus();
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#trace-status")).toHaveText("FAIL");
+  await page.getByRole("button", { name: "Reset demo" }).focus();
+  await page.keyboard.press("Space");
+  await expect(page.locator("#trace-status")).toHaveText("PASS");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth)).toBe(false);
+  const results = await new AxeBuilder({ page: page as never }).analyze();
+  expect(results.violations.filter((violation) => ["serious", "critical"].includes(violation.impact ?? ""))).toEqual([]);
+});
+
 for (const path of ["/privacy/", "/terms/"]) {
   test(`${path} has baseline semantics`, async ({ page }) => {
     await page.goto(path);

@@ -55,9 +55,12 @@
     "build": "npm run clean && npm run build:lib && npm run build:site",
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
     "test:unit": "vitest run --config vitest.config.ts",
-    "test:browser": "npm run build:site && playwright test",
+    "test:browser": "npm run build:lib && npm run build:site && playwright test",
+    "test:claims": "npm run test:browser -- tests/browser/claims.spec.ts",
     "test": "npm run build:lib && npm run test:unit && npm run test:browser",
     "typecheck": "tsc --noEmit",
+    "lint": "npm run typecheck && node scripts/verify-claims.mjs",
+    "verify:url": "./verify-url.sh",
     "prepack": "npm run build:lib"
   },
   "devDependencies": {
