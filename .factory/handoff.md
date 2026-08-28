@@ -7,9 +7,10 @@ Trajectory Test Cases remains a TypeScript npm library with ESM, CommonJS,
 declarations, schema, and CLI. The documentation/demo remains a static Vite
 site built to `dist/site` with the evidence-bench visual system intact.
 
-The repair code commit is `1ad6e6c`. It was pushed to `origin/main`, built, and
-deployed through `/opt/fleet/lib/deploy-static.sh trajectory-test-cases
-dist/site`. The live site is
+The implementation commits are `1ad6e6c` and `524c8a5`. They were pushed to
+`origin/main`, built, and deployed through `/opt/fleet/lib/deploy-static.sh
+trajectory-test-cases dist/site` (deployment
+`f8525b01-a7fd-4d7b-a524-d89535f219c9`). The live site is
 <https://trajectory-test-cases.sociobot.in/>. The complete finding map is in
 `.factory/polish-1.md`.
 
@@ -86,6 +87,9 @@ PLAYWRIGHT_BASE_URL=https://trajectory-test-cases.sociobot.in npx playwright tes
 - Cold visual evidence: `.factory/evidence/polish-1-mobile-home.png`,
   `.factory/evidence/polish-1-mobile-demo.png`, and
   `.factory/evidence/polish-1-404.png`.
+- Built/live SHA-256 matched for the landing, demo, Privacy, Terms, 404, and
+  service worker. Representative hashes: landing `978b0eb7…4ebb`, 404
+  `12546187…fd15`, and service worker `116caa49…06b`.
 
 ## Remaining work
 
