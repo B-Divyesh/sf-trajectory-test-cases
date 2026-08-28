@@ -101,6 +101,7 @@ document.querySelectorAll<HTMLButtonElement>("[data-copy], [data-copy-target]").
 });
 
 const themeToggle = document.querySelector<HTMLButtonElement>("#theme-toggle");
+themeToggle?.setAttribute("aria-label", `Switch to ${document.documentElement.dataset.theme === "dark" ? "light" : "dark"} theme`);
 themeToggle?.addEventListener("click", () => {
   const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
   document.documentElement.dataset.theme = next;

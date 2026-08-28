@@ -7,6 +7,7 @@
   --signal: #d7331a;
   --signal-contrast: #fffdf5;
   --wire: #3856e8;
+  --wire-contrast: #fff;
   --acid: #d7f541;
   --danger: #b82b19;
   --line: #171713;
@@ -26,6 +27,7 @@
   --signal: #ff6b50;
   --signal-contrast: #171713;
   --wire: #8296ff;
+  --wire-contrast: #171713;
   --acid: #d7f541;
   --danger: #ff8a74;
   --line: #fffdf5;
@@ -93,7 +95,7 @@ h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 5vw, 5.25rem); }
 .section-intro > p:not(.eyebrow) { max-width: 480px; color: var(--muted); font-size: 17px; }
 .example-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
 .example-buttons button { padding: 8px 13px; font: 800 12px/1 ui-monospace, monospace; }
-.example-buttons button[aria-pressed="true"] { background: var(--wire); color: #fff; }
+.example-buttons button[aria-pressed="true"] { background: var(--wire); color: var(--wire-contrast); }
 .bench { min-width: 0; border: 3px solid var(--line); background: var(--surface); box-shadow: 10px 10px 0 var(--shadow); }
 .editors { display: grid; grid-template-columns: 1fr 1fr; }
 .editor-block + .editor-block { border-left: 2px solid var(--line); }
