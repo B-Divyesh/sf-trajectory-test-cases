@@ -1,0 +1,16 @@
+{
+  "slug": "trajectory-test-cases",
+  "title": "Trajectory Test Cases",
+  "territory": "devtools-data",
+  "user": "Engineers testing tool-calling agents in CI who need to assert critical intermediate actions and retries without unstable LLM judges or brittle whole-transcript snapshots.",
+  "smallest_useful_product": "An npm library/CLI that records a scrubbed tool event sequence, matches it against a declarative partial-order state machine, injects deterministic retry faults, and produces a visual failure trace.",
+  "success_measure": "A fixture suite detects 90%+ of seeded missing/extra/out-of-order tool actions while running deterministically in CI in under one minute.",
+  "artifact_class": "library-npm",
+  "monetization": "free",
+  "constraints": [
+    "Require scrubbers for tool arguments",
+    "Remain model-agnostic",
+    "Do not imply a passing trajectory proves response quality or safety"
+  ],
+  "non_goals": ["model judging", "prompt optimization", "hosted experiments"]
+}
