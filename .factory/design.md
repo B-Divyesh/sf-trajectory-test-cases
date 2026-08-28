@@ -62,6 +62,10 @@ The final prompt and deployment metadata live beside the source image under
 repository license. UI icons and the wordmark are hand-made with CSS/HTML; no
 stock assets are used.
 
+The 1200 × 630 social card is a center crop of that generated evidence-bench
+asset. The 180 × 180 touch icon is hand-drawn from the same three-card mark and
+project palette. Neither introduces third-party artwork.
+
 ## Voice
 
 Short, factual, and test-oriented: “Trace passed”, “Missing call”, “Run this

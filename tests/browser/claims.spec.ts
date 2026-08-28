@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 test("@claim:demo-sandbox opens sample data in one click and isolates its state", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("link", { name: "Try it with sample data" }).click();
-  await expect(page).toHaveURL(/\/demo\/$/);
+  await expect(page).toHaveURL(/\/demo\/\?demo=1$/);
   await expect(page).toHaveTitle("Demo — Trajectory Test Cases");
   await expect(page.getByText("Demo — sample data, nothing is saved", { exact: true })).toBeVisible();
   await expect(page.locator("#trace-status")).toHaveText("PASS");
@@ -31,6 +31,18 @@ test("@claim:local-privacy sends no trace data and loads no third-party runtime 
   expect(requests).toEqual([]);
   const resourceOrigins = await page.evaluate(() => performance.getEntriesByType("resource").map((entry) => new URL(entry.name).origin));
   expect(new Set(resourceOrigins)).toEqual(new Set([new URL(page.url()).origin]));
+  expect(await page.context().cookies()).toEqual([]);
+  expect(await page.locator('script[src*="analytics"], script[src^="http"], link[href^="https://fonts."]').count()).toBe(0);
+});
+
+test("@claim:browser-runtime runs the package matcher without an account or setup", async ({ page }) => {
+  await page.goto("/?demo=1");
+  await expect(page).toHaveURL(/\/demo\/\?demo=1$/);
+  await expect(page.locator('input[type="email"], input[type="password"]')).toHaveCount(0);
+  await expect(page.getByText("Demo — sample data, nothing is saved", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Load wrong-order example" }).click();
+  await expect(page.locator("#trace-status")).toHaveText("FAIL");
+  await expect(page.locator("#trace-output")).toContainText("Out of order");
 });
 
 test("@claim:deterministic-verdict returns the same result for the same sample input", async ({ page }) => {

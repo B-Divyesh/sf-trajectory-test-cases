@@ -1,7 +1,7 @@
 # Demo sandbox
 
-Open <https://trajectory-test-cases.sociobot.in/demo/> or choose **Try it with
-sample data** on the landing page.
+Open <https://trajectory-test-cases.sociobot.in/?demo=1> or choose **Try it with
+sample data** on the landing page. Both paths enter `/demo/?demo=1` directly.
 
 The demo starts with a passing “research then save” fixture. Its sample trace
 contains two `docs.search` calls followed by one `report.write` call. The

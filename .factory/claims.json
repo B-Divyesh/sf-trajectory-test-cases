@@ -8,10 +8,17 @@
   },
   {
     "id": "local-privacy",
-    "claim": "The browser checker sends no trace data and loads no third-party runtime resources.",
+    "claim": "The browser checker sends no trace data, sets no cookies, and loads no analytics or third-party runtime resources.",
     "where": "landing facts, playground, privacy page, README",
     "test": "npm run test:claims -- --grep @claim:local-privacy",
-    "sandbox": "fresh browser context; enter a marker in both editors; monitor the whole run and assert zero run-time requests and same-origin loaded resources"
+    "sandbox": "fresh browser context; enter a marker in both editors; assert zero run-time requests, same-origin resources, no cookies, and no analytics or remote-font elements"
+  },
+  {
+    "id": "browser-runtime",
+    "claim": "The package matcher runs in the browser demo without an account or setup.",
+    "where": "landing facts, playground, privacy page, README",
+    "test": "npm run test:claims -- --grep @claim:browser-runtime",
+    "sandbox": "fresh browser context; open /?demo=1, assert direct isolated demo entry without auth fields, load wrong-order sample, and observe the matcher failure"
   },
   {
     "id": "deterministic-verdict",
@@ -54,5 +61,61 @@
     "where": "landing page, README",
     "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:cli-contract",
     "sandbox": "temporary fixture files; execute the built CLI with passing, mismatching, and malformed event data"
+  },
+  {
+    "id": "cli-readable-trace",
+    "claim": "The CLI prints a line for each observed event and the exact mismatch.",
+    "where": "landing page, README",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:cli-readable-trace",
+    "sandbox": "temporary fixture files; run a missing-call trace and assert the event row and exact missing-action explanation"
+  },
+  {
+    "id": "public-functions",
+    "claim": "The recorder, matcher, fault injector, and trace renderer can be imported and run independently.",
+    "where": "landing API section, README",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:public-functions",
+    "sandbox": "built ESM package; import and execute each of the four public functions"
+  },
+  {
+    "id": "node-requirement",
+    "claim": "The package requires Node.js 20 or newer.",
+    "where": "README install section, package metadata",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:node-requirement",
+    "sandbox": "inspect the package engine declaration and execute the built CLI under the supported test runtime"
+  },
+  {
+    "id": "selector-matching",
+    "claim": "Expected actions can match a tool, an optional phase, and a JSON subset of scrubbed arguments.",
+    "where": "README usage section",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:selector-matching",
+    "sandbox": "fixed result event with nested arguments; assert the matching subset passes and a different subset fails"
+  },
+  {
+    "id": "default-count",
+    "claim": "An expected action without count must match exactly once.",
+    "where": "README usage section",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:default-count",
+    "sandbox": "one fixture without count; assert zero and two matches fail while one match passes"
+  },
+  {
+    "id": "call-bookkeeping",
+    "claim": "Result and error bookkeeping is ignored by default when every expectation targets calls.",
+    "where": "README usage section",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:call-bookkeeping",
+    "sandbox": "strict call-only fixture; append result and error events and assert the fixture still passes"
+  },
+  {
+    "id": "scrubber-required",
+    "claim": "The recorder requires an argument scrubber before it can record events.",
+    "where": "landing recorder section, README",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:scrubber-required",
+    "sandbox": "construct recorders with missing options and missing scrubArgs; assert both fail before recording"
+  },
+  {
+    "id": "cli-no-prompt",
+    "claim": "The CLI never prompts for input.",
+    "where": "README CLI section, CLI help",
+    "test": "npm run build:lib && npm run test:unit -- --testNamePattern=@claim:cli-no-prompt",
+    "sandbox": "temporary fixture files; run the CLI with stdin closed and a two-second timeout; assert it terminates with the documented mismatch"
   }
 ]

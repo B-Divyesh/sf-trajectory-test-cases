@@ -1,7 +1,7 @@
 # Trajectory Test Cases
 
-Test required agent tool calls, retries, and ordering with deterministic
-fixtures built for CI.
+Check required agent tool calls, retries, and ordering with deterministic CI
+fixtures.
 
 Trajectory Test Cases is for engineers testing tool-calling agents in CI. It
 records scrubbed arguments, injects repeatable retry faults, and prints the
@@ -10,7 +10,7 @@ does **not** prove response quality, correctness, or safety.
 
 ## Try the demo
 
-Open the [sample-data demo](https://trajectory-test-cases.sociobot.in/demo/).
+Open the [sample-data demo](https://trajectory-test-cases.sociobot.in/demo/?demo=1).
 It loads a passing fixture in one click. Demo edits use isolated `demo:` session
 storage and are discarded when you leave. The checker sends no trace data. The
 demo also reloads offline after the first visit.
@@ -117,7 +117,7 @@ npx ttc check --fixture fixtures/weather.json --events traces/weather.json --jso
 
 Exit code `0` means the declared trajectory passed, `1` means it mismatched,
 and `2` means the input or command was invalid. `--json` writes one machine-
-readable result to stdout. The CLI never prompts, so it is safe in CI.
+readable result to stdout. The CLI does not prompt for input.
 
 ## Development
 

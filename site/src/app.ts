@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 import "./style.css";
 import { checkTrajectory, type ToolEvent, type TrajectoryFixture } from "../../src/index";
+import { initializeShell } from "./shell";
 
 const fixture: TrajectoryFixture = {
   version: 1,
@@ -33,6 +34,14 @@ const traces: Record<string, ToolEvent[]> = {
 
 const demoMode = window.location.pathname === "/demo" || window.location.pathname.startsWith("/demo/");
 const demoStorageKey = "demo:ttc-workspace";
+
+if (!demoMode && new URLSearchParams(window.location.search).get("demo") === "1") {
+  window.location.replace("/demo/?demo=1");
+}
+
+function clearDemoStorage(): void {
+  Object.keys(sessionStorage).filter((key) => key.startsWith("demo:")).forEach((key) => sessionStorage.removeItem(key));
+}
 
 function required<T extends Element>(selector: string): T {
   const element = document.querySelector<T>(selector);
@@ -122,14 +131,14 @@ fixtureInput.addEventListener("input", saveDemo);
 eventsInput.addEventListener("input", saveDemo);
 
 document.querySelector<HTMLButtonElement>("#reset-demo")?.addEventListener("click", () => {
-  sessionStorage.removeItem(demoStorageKey);
+  clearDemoStorage();
   seed("pass");
   run();
   status.focus();
 });
 
 document.querySelector<HTMLAnchorElement>("#leave-demo")?.addEventListener("click", () => {
-  sessionStorage.removeItem(demoStorageKey);
+  clearDemoStorage();
 });
 
 document.querySelectorAll<HTMLButtonElement>("[data-copy], [data-copy-target]").forEach((button) => {
@@ -146,15 +155,6 @@ document.querySelectorAll<HTMLButtonElement>("[data-copy], [data-copy-target]").
   });
 });
 
-const themeToggle = document.querySelector<HTMLButtonElement>("#theme-toggle");
-themeToggle?.setAttribute("aria-label", `Switch to ${document.documentElement.dataset.theme === "dark" ? "light" : "dark"} theme`);
-themeToggle?.addEventListener("click", () => {
-  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-  document.documentElement.dataset.theme = next;
-  (demoMode ? sessionStorage : localStorage).setItem(demoMode ? "demo:ttc-theme" : "ttc-theme", next);
-  themeToggle.setAttribute("aria-label", `Switch to ${next === "dark" ? "light" : "dark"} theme`);
-});
-
 function updateOnlineState(): void {
   const offline = document.querySelector<HTMLElement>("#offline");
   if (offline) offline.hidden = navigator.onLine;
@@ -163,5 +163,6 @@ window.addEventListener("online", updateOnlineState);
 window.addEventListener("offline", updateOnlineState);
 updateOnlineState();
 run();
+initializeShell({ demo: demoMode });
 
 if ("serviceWorker" in navigator && import.meta.env.PROD) void navigator.serviceWorker.register("/sw.js");

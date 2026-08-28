@@ -1,9 +1,0 @@
-html { font: 18px/1.5 Arial, sans-serif; background: #f3f0e6; color: #171713; }
-body { margin: 0; }
-.skip { position: absolute; left: 1rem; top: -5rem; }
-.skip:focus { top: 1rem; }
-main { width: min(42rem, calc(100% - 2.5rem)); min-height: 70vh; margin: auto; padding: 12vh 0; }
-p:first-child { font: 800 13px ui-monospace, monospace; text-transform: uppercase; }
-h1 { max-width: 10ch; margin: .3em 0; font: 900 clamp(3rem, 10vw, 7rem)/.92 "Arial Black", Arial, sans-serif; letter-spacing: -.06em; }
-a { min-height: 44px; display: inline-flex; align-items: center; padding: 0 1rem; border: 2px solid #171713; background: #d7f541; color: #171713; font-weight: 800; text-underline-offset: 4px; box-shadow: 4px 4px #171713; }
-a:focus-visible { outline: 3px solid #3856e8; outline-offset: 3px; }

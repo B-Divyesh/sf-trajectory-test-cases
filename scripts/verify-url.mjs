@@ -1,21 +1,41 @@
 import { chromium } from "@playwright/test";
 
-const url = process.argv[2] ?? "http://127.0.0.1:4173/";
+const input = new URL(process.argv[2] ?? "http://127.0.0.1:4173/");
+const origin = input.origin;
+const local = ["127.0.0.1", "localhost"].includes(input.hostname);
+const routes = ["/", "/demo/?demo=1", "/privacy/", "/terms/", local ? "/404.html" : "/verify-not-a-real-route"];
 const browser = await chromium.launch({ headless: true });
 const page = await browser.newPage();
-const errors = [];
-page.on("console", (message) => { if (message.type() === "error") errors.push(message.text()); });
-page.on("pageerror", (error) => errors.push(error.message));
-const response = await page.goto(url, { waitUntil: "networkidle" });
-if (!response?.ok()) throw new Error(`HTTP ${response?.status() ?? "no response"}`);
-const result = await page.evaluate(() => ({
-  title: document.title,
-  lang: document.documentElement.lang,
-  mains: document.querySelectorAll("main").length,
-  headings: document.querySelectorAll("h1").length,
-  missingAlt: [...document.querySelectorAll("img")].filter((image) => !image.hasAttribute("alt")).length,
-  unnamedButtons: [...document.querySelectorAll("button")].filter((button) => !(button.getAttribute("aria-label") || button.textContent?.trim())).length,
-}));
-if (!result.title || !result.lang || result.mains !== 1 || result.headings !== 1 || result.missingAlt || result.unnamedButtons || errors.length) throw new Error(JSON.stringify({ ...result, consoleErrors: errors }));
-console.log(JSON.stringify({ url, http: response.status(), ...result, consoleErrors: errors.length }));
+
+for (const route of routes) {
+  const errors = [];
+  const onConsole = (message) => { if (message.type() === "error") errors.push(message.text()); };
+  const onPageError = (error) => errors.push(error.message);
+  page.on("console", onConsole);
+  page.on("pageerror", onPageError);
+  const response = await page.goto(new URL(route, origin).href, { waitUntil: "networkidle" });
+  const expectedStatus = !local && route === "/verify-not-a-real-route" ? 404 : 200;
+  if (response?.status() !== expectedStatus) throw new Error(`${route}: expected HTTP ${expectedStatus}, received ${response?.status() ?? "no response"}`);
+  const result = await page.evaluate(() => ({
+    title: document.title,
+    lang: document.documentElement.lang,
+    mains: document.querySelectorAll("main").length,
+    headings: document.querySelectorAll("h1").length,
+    headingFocused: document.activeElement === document.querySelector("h1"),
+    missingAlt: [...document.querySelectorAll("img")].filter((image) => !image.hasAttribute("alt")).length,
+    unnamedButtons: [...document.querySelectorAll("button")].filter((button) => !(button.getAttribute("aria-label") || button.textContent?.trim())).length,
+    canonical: document.querySelector('link[rel="canonical"]')?.getAttribute("href") ?? "",
+    ogTitle: document.querySelector('meta[property="og:title"]')?.getAttribute("content") ?? "",
+    twitterTitle: document.querySelector('meta[name="twitter:title"]')?.getAttribute("content") ?? "",
+    appleTouch: document.querySelector('link[rel="apple-touch-icon"]')?.getAttribute("sizes") ?? "",
+    footerLegal: Boolean(document.querySelector('footer a[href="/privacy/"]') && document.querySelector('footer a[href="/terms/"]')),
+  }));
+  if (!result.title || !result.lang || result.mains !== 1 || result.headings !== 1 || !result.headingFocused || result.missingAlt || result.unnamedButtons || !result.canonical || !result.ogTitle || !result.twitterTitle || result.appleTouch !== "180x180" || !result.footerLegal || errors.length) {
+    throw new Error(`${route}: ${JSON.stringify({ ...result, consoleErrors: errors })}`);
+  }
+  console.log(JSON.stringify({ url: page.url(), http: response.status(), ...result, consoleErrors: errors.length }));
+  page.off("console", onConsole);
+  page.off("pageerror", onPageError);
+}
+
 await browser.close();

@@ -61,8 +61,9 @@ button:focus-visible, a:focus-visible, textarea:focus-visible { outline: 3px sol
 .brand-mark i:nth-child(2) { right: 0; top: 11px; background: var(--wire); }
 .brand-mark i:nth-child(3) { left: 4px; bottom: 0; background: var(--acid); }
 .topbar nav { display: flex; align-items: center; gap: clamp(12px, 2.2vw, 32px); font: 700 13px/1 ui-monospace, monospace; }
-.topbar nav a { text-decoration: none; border-bottom: 2px solid transparent; }
+.topbar nav a { min-height: 44px; display: inline-flex; align-items: center; text-decoration: none; border-bottom: 2px solid transparent; }
 .topbar nav a:hover { border-color: var(--signal); }
+.topbar nav a[aria-current="page"] { border-color: var(--wire); }
 .theme-toggle, .copy-button, .example-buttons button, .run-button { border: 2px solid var(--line); background: var(--surface); box-shadow: 3px 3px 0 var(--shadow); cursor: pointer; font-weight: 800; }
 .theme-toggle { padding: 8px 12px; box-shadow: none; }
 .theme-toggle:hover, .copy-button:hover, .example-buttons button:hover { background: var(--acid); color: #171713; }
@@ -75,6 +76,7 @@ main { overflow: hidden; }
 h1, h2, h3, p { margin-top: 0; }
 h1, h2 { font-family: "Arial Black", Arial, sans-serif; letter-spacing: -.065em; line-height: .93; }
 h1 { max-width: 820px; margin-bottom: 28px; font-size: clamp(3.25rem, 7.6vw, 7rem); }
+h1:focus { outline: 3px solid var(--wire); outline-offset: 8px; }
 h1 em { color: var(--signal); font-style: normal; }
 .lede { max-width: 650px; margin-bottom: 32px; font-size: clamp(1.1rem, 1.5vw, 1.35rem); line-height: 1.48; }
 .hero-action { max-width: 660px; margin-bottom: 20px; display: flex; align-items: center; gap: 18px; }
@@ -166,14 +168,18 @@ pre { margin: 0; padding: clamp(22px, 4vw, 40px); overflow-x: auto; font: 15px/1
 footer { padding: 48px max(20px, calc((100% - 1320px) / 2)); display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 24px; border-top: 2px solid var(--line); }
 footer p { margin: 0; text-align: center; color: var(--muted); font-size: 14px; }
 footer nav { display: flex; justify-content: flex-end; gap: 24px; font-weight: 800; font-size: 14px; }
+footer nav a { min-height: 44px; display: inline-flex; align-items: center; }
 
 .legal-main { width: min(760px, calc(100% - 40px)); min-height: 70vh; margin: 0 auto; padding: 80px 0 120px; }
 .legal-main h1 { font-size: clamp(3rem, 8vw, 6rem); }
 .legal-main h2 { margin-top: 48px; font-size: 1.6rem; letter-spacing: -.03em; }
 .legal-main p, .legal-main li { max-width: 68ch; }
+.not-found-main { width: min(900px, calc(100% - 40px)); min-height: 68vh; margin: 0 auto; padding: clamp(72px, 12vw, 144px) 0; }
+.not-found-main h1 { max-width: 10ch; }
+.not-found-main > p:not(.eyebrow) { max-width: 42ch; margin-bottom: 28px; font-size: 18px; }
 
 @media (max-width: 900px) {
-  .topbar nav > a { display: none; }
+  .topbar nav > .nav-optional { display: none; }
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-figure { max-width: 720px; }
   .section-grid { grid-template-columns: 1fr; }
@@ -184,12 +190,16 @@ footer nav { display: flex; justify-content: flex-end; gap: 24px; font-weight: 8
 
 @media (max-width: 640px) {
   .topbar { padding-inline: 16px; }
+  .topbar .brand > span:last-child { display: none; }
+  .topbar nav { gap: 10px; }
+  .topbar nav a { padding-inline: 2px; }
+  .theme-toggle { padding-inline: 10px; }
   .hero { padding: 64px 20px 72px; gap: 56px; }
   .hero-action { align-items: flex-start; flex-direction: column; gap: 10px; }
-  .demo-banner { position: static; align-items: flex-start; flex-direction: column; padding-block: 10px; }
+  .demo-banner { position: sticky; align-items: flex-start; flex-direction: column; padding-block: 8px; gap: 4px; }
   .demo-banner div { width: 100%; }
   .demo-banner button, .demo-banner a { flex: 1; justify-content: center; }
-  h1 { font-size: clamp(3rem, 15vw, 4.4rem); }
+  h1 { overflow-wrap: anywhere; font-size: clamp(3rem, 15vw, 4.4rem); }
   .install-row { flex-direction: column; }
   .copy-button { margin: -2px 0 0; }
   .proof-strip { grid-template-columns: 1fr 1fr; }

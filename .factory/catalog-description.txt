@@ -1,0 +1,1 @@
+Check required agent tool calls, retries, and ordering with deterministic CI fixtures.

@@ -7,6 +7,10 @@
     {
       "route": "/sw.js",
       "headers": { "Cache-Control": "no-cache" }
+    },
+    {
+      "route": "/404.html",
+      "headers": { "Cache-Control": "no-cache" }
     }
   ],
   "globalHeaders": {
