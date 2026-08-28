@@ -1,3 +1,14 @@
+# Independent verification handoff — PASS
+
+Candidate `f9e046396d9fbe205c839ad7a11d9f016f236bfc` at
+<https://trajectory-test-cases.sociobot.in/> **passed independent QA on
+2026-08-28 UTC**. All eight clean-state claim commands, full tests, typecheck,
+lint, production build, URL semantics check, package/CLI consumer exercise,
+live privacy request logging, offline reload, 390 px keyboard flow, axe light/
+dark scans, headers, cache policy, and candidate/live asset hashes passed.
+There are no P0–P3 defects. Full exact evidence and reproduction commands are
+in `.factory/verification-2.md`.
+
 # Repair handoff — Trajectory Test Cases
 
 ## Outcome
