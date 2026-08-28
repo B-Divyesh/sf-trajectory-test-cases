@@ -77,9 +77,25 @@ npm audit
 
 ## Deployment evidence
 
-Production deployment and post-deploy header/identity checks are pending the
-repair commit. Replace this paragraph with the deployed commit, live header
-values, route checks, and build/live hashes after deployment.
+Repair commit `5f28208` was pushed to `origin/main` and its `dist/site` was
+deployed to the production Azure Static Web App. Post-deploy checks against
+<https://trajectory-test-cases.sociobot.in> found:
+
+- `/`, `/demo/`, `/privacy/`, and `/terms/` return 200. An unknown route returns
+  the designed page with HTTP 404.
+- The live first screen uses the repaired job headline, and `/demo/` has the
+  dedicated demo title, banner, passing sample, reset, and exit controls.
+- CSP, Permissions-Policy, Referrer-Policy, and `X-Content-Type-Options` are
+  present on live HTML and asset responses.
+- `/assets/app-YcD-SGAG.js` returns
+  `Cache-Control: public, max-age=31536000, immutable`; `/sw.js` returns
+  `Cache-Control: no-cache`.
+- All 10 Playwright tests pass against the custom production domain using
+  `PLAYWRIGHT_BASE_URL=https://trajectory-test-cases.sociobot.in npx playwright test`.
+- Byte comparisons passed for the built and live landing, demo, privacy, terms,
+  service worker, app JavaScript, and CSS. Representative SHA-256 hashes:
+  landing `e4bdb240…bd34`, demo `30661f30…6f85`, service worker
+  `4dabbc6c…d6b`, app JavaScript `a175b63a…326`, and CSS `e3c8f6a2…d66c`.
 
 ## Known gaps and next steps
 
