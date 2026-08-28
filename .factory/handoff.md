@@ -1,5 +1,21 @@
 # Handoff — Trajectory Test Cases v0.1.0
 
+## Independent release verification: **FAIL**
+
+Candidate `df798f8414971a421b7f93b676c1c8e1bca9d5fc` was independently checked
+against https://trajectory-test-cases.sociobot.in/ on 2026-08-28 UTC. It is not
+acceptable for release: `.factory/claims.json` is missing (therefore no
+mandatory claim tests exist), and the first screen has neither a plain-language
+job/target-user explanation nor a one-click “Try it with sample data” isolated
+demo. `/demo` falls back to the normal landing page. See
+`.factory/verification.md` for exact evidence, all passing tests, deployment
+comparison, privacy/network observations, and defect severities.
+
+The functional build/library result remains positive: clean `npm ci`,
+typecheck, 22 unit/CLI tests, 5 browser tests, production build, package dry
+run, and fresh-consumer API/CLI checks passed. This does not override the
+release blockers above.
+
 ## What shipped
 
 - Zero-runtime-dependency TypeScript library with ESM, CommonJS, and `.d.ts`
