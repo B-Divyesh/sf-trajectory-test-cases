@@ -1,72 +1,26 @@
-# Polish 3 handoff — PASS
+# Review 4 handoff — PASS
 
-## Delivered
+## Done
 
-Repaired review candidate `7f3c163` in code commit `fcffaee` and deployed its
-static `dist/site` build to <https://trajectory-test-cases.sociobot.in/>.
+Completed the requested adversarial first-read review without modifying product
+code. The full report is in `.factory/review-4.md`.
 
-- Replaced the remaining slogan-led fixture-checker heading with the literal
-  `Test a fixture with sample events`, and locked it with browser regression
-  coverage.
-- Replaced adjacent slogan/jargon headings on the landing, demo, and 404 with
-  self-contained plain-language section names. The product keeps its
-  warm-paper evidence-bench visual system and original art.
-- Preserved and rechecked the prior repairs: one-click isolated `/demo/?demo=1`
-  sample, persistent reset/leave banner, `demo:` session-only storage, full
-  metadata/routing/404/legal shell, route focus announcements, mobile evidence
-  strip, privacy/offline behavior, and all claim tests.
-- Updated the catalog description to `Check agent tool paths, retries, and
-  ordering in CI.` (53 characters, verb first).
+## Verified
 
-## Verification
+- Cold live phone (390 × 844) and desktop reads: clear job, audience, and first
+  action; no console errors or horizontal overflow.
+- Direct and one-click demo: visible seeded `PASS` trace in the mobile first
+  viewport; reset and leave behavior; `demo:` session-only storage; no cookies
+  or outgoing demo requests; same-origin initial resources.
+- Every command in `.factory/claims.json` passed from clean clone
+  `/tmp/trajectory-test-cases-review-4-JK7D8l` after `npm ci`.
+- `npm test`, `npm run lint`, `npm run typecheck`, `npm run build`,
+  `npm pack --dry-run`, live `npm run verify:url -- https://trajectory-test-cases.sociobot.in`,
+  and the live 19-test Playwright suite passed.
+- Crawled live links and checked routes, metadata, 404, headers, focus, and
+  prior-review closure.
 
-Fresh clone: `/tmp/trajectory-test-cases-polish-3-final-HsELSb`.
+## Known gaps / next steps
 
-1. `npm ci` passed with zero reported vulnerabilities.
-2. Every one of the 17 commands in `.factory/claims.json` passed from that
-   clone. `npm run lint` confirmed exactly one tagged test for every claim.
-3. `npm test` passed: 36 unit tests and 19 browser tests. The browser suite
-   includes Axe scans, keyboard operation, mobile no-overflow, demo isolation,
-   request privacy, offline reload, metadata, focus, and 404 coverage.
-4. `npm run typecheck`, `npm run lint`, `npm run build`, `npm pack --dry-run`,
-   and `npm audit --omit=dev` passed. The ready-to-publish tarball is 10.4 kB
-   (54.5 kB unpacked).
-5. Built assets remain within budget: application JS 3.56 kB gzip and CSS
-   4.21 kB gzip.
-
-Deployment used:
-
-```sh
-npm run build
-/opt/fleet/lib/deploy-static.sh trajectory-test-cases dist/site
-```
-
-Post-deploy checks passed:
-
-```sh
-npm run verify:url -- https://trajectory-test-cases.sociobot.in
-PLAYWRIGHT_BASE_URL=https://trajectory-test-cases.sociobot.in npx playwright test
-```
-
-The URL verifier passed `/`, `/demo/?demo=1`, `/privacy/`, `/terms/`, and a
-real HTTP 404. The live suite passed 19/19. Cold screenshots are
-`evidence/polish-3-live-home.png`,
-`evidence/polish-3-live-home-full.png`,
-`evidence/polish-3-live-mobile-demo.png`, and
-`evidence/polish-3-live-404.png`.
-
-The post-push live landing HTML SHA-256 was
-`9f55e803b36b4e9a564533d4cf33c7b715b80b2adf522350d2a35a682c68b0f0`,
-matching `dist/site/index.html`. The live hashed application asset has
-`Cache-Control: public, max-age=31536000, immutable`; the page has CSP,
-Permissions-Policy, Referrer-Policy, and `X-Content-Type-Options: nosniff`.
-
-Live Lighthouse results are saved in
-`.factory/evidence/lighthouse-polish-3.json`: 100 Performance, 100
-Accessibility, 100 Best Practices, 100 SEO; FCP 235 ms, LCP 235 ms, TBT 0 ms,
-and CLS 0.
-
-## Known gaps and next steps
-
-None. The npm package is ready for the factory registry workflow; do not
-publish from this worker. The factory owns deployment and registry credentials.
+None. This review changed only `.factory/review-4.md` and this handoff record;
+deployment and package publishing remain factory-owned.
