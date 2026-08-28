@@ -55,6 +55,12 @@ real HTTP 404. The live suite passed 19/19. Cold screenshots are
 `evidence/polish-3-live-mobile-demo.png`, and
 `evidence/polish-3-live-404.png`.
 
+The post-push live landing HTML SHA-256 was
+`9f55e803b36b4e9a564533d4cf33c7b715b80b2adf522350d2a35a682c68b0f0`,
+matching `dist/site/index.html`. The live hashed application asset has
+`Cache-Control: public, max-age=31536000, immutable`; the page has CSP,
+Permissions-Policy, Referrer-Policy, and `X-Content-Type-Options: nosniff`.
+
 Live Lighthouse results are saved in
 `.factory/evidence/lighthouse-polish-3.json`: 100 Performance, 100
 Accessibility, 100 Best Practices, 100 SEO; FCP 235 ms, LCP 235 ms, TBT 0 ms,
