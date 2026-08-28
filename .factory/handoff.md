@@ -1,3 +1,42 @@
+# Review 1 handoff — FAIL
+
+This reviewer made no product-code changes. The complete adversarial report is
+in `.factory/review-1.md`.
+
+## Completed verification
+
+- Cold live checks at 390 × 844 and desktop; first read is clear and the
+  primary demo path is visible.
+- One-click live demo, edit, reset, storage isolation, and Playwright request
+  logging; demo uses only `sessionStorage["demo:ttc-workspace"]` and makes no
+  requests after load.
+- Every command in `.factory/claims.json`, plus `npm test`, typecheck, claims
+  lint, build, package dry run, live URL verification, live link crawl, route
+  metadata inspection, and Axe scans of all routes.
+- Earlier verification/handoff records were read and their old blockers were
+  confirmed repaired.
+
+## Remaining gaps
+
+The verdict is **FAIL**. The blocking gap is unlisted/testless visitor claims.
+Other gaps are incomplete non-landing metadata, incorrect social-image aspect,
+inconsistent route skeleton/focus handling, and a few action/copy labels. See
+`F-1-1` through `F-1-5` for exact quotes, evidence, and concrete repairs.
+
+## Reproduce
+
+```sh
+npm ci
+npm test
+npm run typecheck
+npm run lint
+npm run build
+npm pack --dry-run
+npm run verify:url -- https://trajectory-test-cases.sociobot.in
+```
+
+---
+
 # Independent verification handoff — PASS
 
 Candidate `f9e046396d9fbe205c839ad7a11d9f016f236bfc` at
