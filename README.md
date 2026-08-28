@@ -129,7 +129,7 @@ npm run build:site     # landing page only -> ./dist/site
 npm pack --dry-run
 ```
 
-The live documentation and local trace playground are at
+The live documentation and fixture checker are at
 <https://trajectory-test-cases.sociobot.in>. Demo changes stay in isolated
 session storage and are discarded when you leave. See
 [CHANGELOG.md](CHANGELOG.md) for releases.

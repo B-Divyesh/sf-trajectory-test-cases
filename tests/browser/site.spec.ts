@@ -12,8 +12,11 @@ test("homepage is accessible and interactive", async ({ page }) => {
   await expect(page.locator("main")).toHaveCount(1);
   await expect(page.locator("h1")).toHaveCount(1);
   await expect(page.locator("h1")).toHaveText("Check agent tool paths in CI.");
-  await expect(page.locator(".method > .eyebrow")).toContainText("Check agent calls in three steps");
-  await expect(page.locator(".api .eyebrow")).toContainText("Four library tools");
+  await expect(page.locator("#playground-title")).toHaveText("Test a fixture with sample events");
+  await expect(page.locator("#playground .eyebrow")).toContainText("Fixture checker");
+  await expect(page.locator("#method-title")).toHaveText("Check agent calls in three steps");
+  await expect(page.locator("#api-title")).toHaveText("Four library tools");
+  await expect(page.locator("#boundary-title")).toHaveText("A passing fixture does not prove safety.");
   await expect(page.getByText("Missing save", { exact: false })).toBeVisible();
   await page.getByRole("button", { name: "Load passing trace" }).click();
   await expect(page.locator("#trace-status")).toHaveText("PASS");
@@ -133,4 +136,10 @@ test("route navigation and browser back restore heading focus", async ({ page })
   await expect(page).toHaveURL(/\/demo\/\?demo=1$/);
   await expect(page.locator("h1")).toBeFocused();
   await expect(page.locator("#route-announcer")).toContainText("Demo page loaded");
+});
+
+test("404 names the missing page in plain words", async ({ page }) => {
+  await page.goto("/404.html");
+  await expect(page.locator("h1")).toHaveText("This page was not found.");
+  await expect(page.locator(".not-found-main .eyebrow")).toContainText("Page not found");
 });

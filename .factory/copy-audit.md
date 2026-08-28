@@ -1,6 +1,6 @@
 # Landing copy audit
 
-Audited 2026-08-28 after polish round 1. Counts use whitespace-delimited
+Audited 2026-08-28 after polish round 3. Counts use whitespace-delimited
 words and treat hyphenated terms as one word. Executable JSON and code are
 excluded. Every visible landing sentence, heading, label, and action is listed.
 
@@ -16,7 +16,7 @@ excluded. Every visible landing sentence, heading, label, and action is listed.
 | Check agent tool paths in CI. | 6 | Pass |
 | For engineers who test required tool calls, retries, and ordering in CI. | 12 | Pass |
 | Try it with sample data | 5 | Pass |
-| Opens a passing fixture in the local trace bench. | 9 | Pass |
+| Opens a passing fixture in the fixture checker. | 9 | Pass |
 | Runs locally in your browser | 5 | Pass |
 | No account or trace upload | 5 | Pass |
 | Free under the MIT License | 5 | Pass |
@@ -31,9 +31,8 @@ excluded. Every visible landing sentence, heading, label, and action is listed.
 | Ordering edges | 2 | Pass |
 | Forbidden actions | 2 | Pass |
 | Retry counts | 2 | Pass |
-| Local trace bench | 3 | Pass |
-| Break a fixture. | 3 | Pass |
-| Read the evidence. | 3 | Pass |
+| Fixture checker | 2 | Pass |
+| Test a fixture with sample events | 6 | Pass |
 | Edit either JSON panel or load a seeded mutation. | 9 | Pass |
 | The package matcher runs here in your browser. | 8 | Pass |
 | Load passing trace | 3 | Pass |
@@ -54,23 +53,22 @@ excluded. Every visible landing sentence, heading, label, and action is listed.
 | Could not run this fixture. | 5 | Pass |
 | Fix the JSON or load a known example. | 9 | Pass |
 | All declared path invariants matched. | 5 | Pass |
+| How it works | 3 | Pass |
 | Check agent calls in three steps | 6 | Pass |
-| Keep only the invariants that matter. | 6 | Pass |
 | Record scrubbed events | 3 | Pass |
 | You supply the argument scrubber. | 5 | Pass |
 | The recorder stores its output, not the raw arguments. | 9 | Pass |
 | Declare partial order | 3 | Pass |
 | Name required actions, attach only meaningful “after” edges, and forbid dangerous calls. | 12 | Pass |
-| Fail with evidence | 3 | Pass |
+| See why a fixture failed | 5 | Pass |
 | Get stable exit codes, structured JSON, and a line-by-line trace that explains the mismatch. | 14 | Pass |
+| Package API | 2 | Pass |
 | Four library tools | 3 | Pass |
-| One checker. | 2 | Pass |
-| Four tools. | 2 | Pass |
 | Use the recorder, matcher, fault injector, or renderer independently. | 9 | Pass |
 | The package has no runtime dependencies. | 6 | Pass |
 | Read the full API | 4 | Pass |
 | Copy code | 2 | Pass |
-| A pass is path evidence—not a safety certificate. | 8 | Pass |
+| A passing fixture does not prove safety. | 7 | Pass |
 | Trajectory Test Cases verifies only the actions and ordering you declare. | 11 | Pass |
 | Keep output quality, security, and end-to-end behavior in your wider test strategy. | 12 | Pass |
 | Check agent tool paths in CI. | 6 | Pass |
