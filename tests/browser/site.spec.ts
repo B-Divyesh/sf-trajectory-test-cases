@@ -11,6 +11,9 @@ test("homepage is accessible and interactive", async ({ page }) => {
   await expect(page).toHaveTitle(/Trajectory Test Cases/);
   await expect(page.locator("main")).toHaveCount(1);
   await expect(page.locator("h1")).toHaveCount(1);
+  await expect(page.locator("h1")).toHaveText("Check agent tool paths in CI.");
+  await expect(page.locator(".method > .eyebrow")).toContainText("Check agent calls in three steps");
+  await expect(page.locator(".api .eyebrow")).toContainText("Four library tools");
   await expect(page.getByText("Missing save", { exact: false })).toBeVisible();
   await page.getByRole("button", { name: "Load passing trace" }).click();
   await expect(page.locator("#trace-status")).toHaveText("PASS");

@@ -7,6 +7,7 @@ excluded. Every visible landing sentence, heading, label, and action is listed.
 | Copy | Words | Result |
 | --- | ---: | --- |
 | Skip to main content | 4 | Pass |
+| You’re offline. The checker still runs locally. | 7 | Pass |
 | Demo | 1 | Pass |
 | Privacy | 1 | Pass |
 | GitHub | 1 | Pass |
@@ -24,6 +25,7 @@ excluded. Every visible landing sentence, heading, label, and action is listed.
 | ESM + CJS | 2 | Pass |
 | TypeScript declarations | 2 | Pass |
 | Fixture → evidence | 2 | Pass |
+| Paper tool-event cards connected by a blue dependency cord, with a red retry mark and green pass tab. | 18 | Pass |
 | The fixture checks required calls and their partial order. | 9 | Pass |
 | Required calls | 2 | Pass |
 | Ordering edges | 2 | Pass |
@@ -39,11 +41,14 @@ excluded. Every visible landing sentence, heading, label, and action is listed.
 | Load wrong-order example | 3 | Pass |
 | Load empty trace | 3 | Pass |
 | Fixture | 1 | Pass |
+| JSON fixture defining expected and forbidden tool actions. | 8 | Pass |
 | Observed | 1 | Pass |
+| JSON array of already scrubbed tool events. | 7 | Pass |
 | The check sends no trace data. | 6 | Pass |
 | The same input returns the same verdict. | 8 | Pass |
 | Run fixture | 2 | Pass |
 | Inspection trace | 2 | Pass |
+| Missing save: expected 1 report.write call. | 7 | Pass |
 | No events observed. | 3 | Pass |
 | Add a scrubbed event or load an example to test this fixture. | 12 | Pass |
 | Could not run this fixture. | 5 | Pass |

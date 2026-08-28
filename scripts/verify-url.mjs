@@ -30,10 +30,11 @@ for (const route of routes) {
     appleTouch: document.querySelector('link[rel="apple-touch-icon"]')?.getAttribute("sizes") ?? "",
     footerLegal: Boolean(document.querySelector('footer a[href="/privacy/"]') && document.querySelector('footer a[href="/terms/"]')),
   }));
-  if (!result.title || !result.lang || result.mains !== 1 || result.headings !== 1 || !result.headingFocused || result.missingAlt || result.unnamedButtons || !result.canonical || !result.ogTitle || !result.twitterTitle || result.appleTouch !== "180x180" || !result.footerLegal || errors.length) {
-    throw new Error(`${route}: ${JSON.stringify({ ...result, consoleErrors: errors })}`);
+  const actionableErrors = expectedStatus === 404 ? errors.filter((error) => !/Failed to load resource.*404/i.test(error)) : errors;
+  if (!result.title || !result.lang || result.mains !== 1 || result.headings !== 1 || !result.headingFocused || result.missingAlt || result.unnamedButtons || !result.canonical || !result.ogTitle || !result.twitterTitle || result.appleTouch !== "180x180" || !result.footerLegal || actionableErrors.length) {
+    throw new Error(`${route}: ${JSON.stringify({ ...result, consoleErrors: actionableErrors })}`);
   }
-  console.log(JSON.stringify({ url: page.url(), http: response.status(), ...result, consoleErrors: errors.length }));
+  console.log(JSON.stringify({ url: page.url(), http: response.status(), ...result, consoleErrors: actionableErrors.length }));
   page.off("console", onConsole);
   page.off("pageerror", onPageError);
 }
