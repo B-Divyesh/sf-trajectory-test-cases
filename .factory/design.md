@@ -11,13 +11,14 @@ developer landing page.
 - `charcoal #171713`: primary ink and dark theme ground.
 - `paper #F3F0E6`: warm fixture-paper background; less clinical than white.
 - `chalk #FFFDF5`: raised surface.
-- `signal #FF4E2F`: failure/action orange-red, with charcoal text where filled.
+- `signal #D7331A`: failure/action orange-red, with white text where filled.
 - `wire #3856E8`: dependency-edge blue; selected controls use white on this blue.
 - `acid #D7F541`: pass/highlight marker with charcoal text.
 - `muted #64645B`: secondary text on paper (contrast checked above 4.5:1).
 - semantic danger uses `#B82B19` on light and `#FF8A74` on dark; warning uses
   dark text on acid. State always includes a symbol and label, never color alone.
 
+In the dark treatment the signal shifts to `#FF6B50` and uses charcoal text.
 The site has deliberate light and dark treatments, selected from system
 preference with a persistent user toggle. Borders are solid charcoal/cream,
 not shadow-heavy glass or gradients.

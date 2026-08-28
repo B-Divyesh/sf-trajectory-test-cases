@@ -13,8 +13,16 @@
   "bugs": {
     "url": "https://github.com/B-Divyesh/sf-trajectory-test-cases/issues"
   },
-  "keywords": ["agents", "testing", "tool-calling", "ci", "trajectory"],
-  "engines": { "node": ">=20" },
+  "keywords": [
+    "agents",
+    "testing",
+    "tool-calling",
+    "ci",
+    "trajectory"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "sideEffects": false,
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -24,10 +32,22 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./fixture.schema.json": "./schema/fixture.schema.json"
   },
-  "bin": { "ttc": "./dist/cli.cjs" },
-  "files": ["dist/index.js", "dist/index.cjs", "dist/index.d.ts", "dist/cli.cjs", "README.md", "LICENSE", "CHANGELOG.md"],
+  "bin": {
+    "ttc": "./dist/cli.cjs"
+  },
+  "files": [
+    "dist/index.js",
+    "dist/index.cjs",
+    "dist/index.d.ts",
+    "dist/cli.cjs",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "schema/fixture.schema.json"
+  ],
   "scripts": {
     "dev": "vite --config vite.config.ts",
     "build:lib": "tsup",
@@ -41,12 +61,13 @@
     "prepack": "npm run build:lib"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.10.2",
+    "@axe-core/playwright": "^4.11.0",
     "@playwright/test": "1.58.2",
-    "@types/node": "22.10.7",
-    "tsup": "8.3.6",
+    "@types/node": "^24.10.13",
+    "tsup": "^8.5.1",
     "typescript": "5.7.3",
-    "vite": "6.0.11",
-    "vitest": "2.1.8"
-  }
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
+  },
+  "overrides": { "esbuild": "0.28.2" }
 }

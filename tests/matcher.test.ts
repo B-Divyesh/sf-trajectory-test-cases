@@ -47,6 +47,11 @@ describe("checkTrajectory", () => {
     expect(checkTrajectory(fixture, events).pass).toBe(true);
   });
 
+  it("rejects calls when a strict fixture has no expectations", () => {
+    const result = checkTrajectory({ version: 1, name: "nothing", expect: [], allowUnmatched: false }, [{ seq: 1, tool: "surprise", phase: "call" }]);
+    expect(result.failures[0]?.code).toBe("unexpected");
+  });
+
   it("rejects cycles and unknown dependencies", () => {
     expect(() => checkTrajectory({ version: 1, name: "bad", expect: [{ id: "a", tool: "a", after: ["b"] }] }, [])).toThrow(TrajectoryInputError);
     expect(() => checkTrajectory({ version: 1, name: "cycle", expect: [{ id: "a", tool: "a", after: ["b"] }, { id: "b", tool: "b", after: ["a"] }] }, [])).toThrow(/cycle/);

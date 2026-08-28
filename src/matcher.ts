@@ -86,6 +86,7 @@ export function checkTrajectory(fixtureValue: unknown, eventsValue: unknown): Tr
 
   if (fixture.allowUnmatched === false) {
     const relevantPhases = new Set(fixture.expect.map((item) => item.phase ?? "call"));
+    if (relevantPhases.size === 0) relevantPhases.add("call");
     const indices: number[] = [];
     events.forEach((event, index) => {
       const annotation = annotations[index];

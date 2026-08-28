@@ -98,6 +98,9 @@ expectations target calls.
 The recorder requires `scrubArgs`; raw tool arguments are never stored. Result
 payloads are omitted unless you also provide `scrubResult`.
 
+Editors and validators can load the published JSON Schema from
+`trajectory-test-cases/fixture.schema.json`.
+
 ## CLI
 
 Write the recorder output to JSON, then run:

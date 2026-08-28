@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#F3F0E6" />
+    <meta name="description" content="Deterministic partial-order assertions for tool-calling agent trajectories." />
+    <title>Trajectory Test Cases — Assert the path, not the prose</title>
+    <link rel="canonical" href="https://trajectory-test-cases.sociobot.in/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <script>
+      document.documentElement.dataset.theme = localStorage.getItem("ttc-theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <div class="offline" id="offline" role="status" hidden>You’re offline. The checker still runs locally.</div>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Trajectory Test Cases home">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>Trajectory<br />Test Cases</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#playground">Playground</a>
+        <a href="#api">API</a>
+        <a href="https://github.com/B-Divyesh/sf-trajectory-test-cases">GitHub</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme"><span aria-hidden="true">◐</span> Theme</button>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span>01</span> Deterministic agent testing</p>
+          <h1 id="hero-title">Assert the path.<br /><em>Not the prose.</em></h1>
+          <p class="lede">Pin down critical tool calls, retries, and ordering in CI—without transcript snapshots or an LLM judge.</p>
+          <div class="install-row">
+            <code>npm i -D trajectory-test-cases</code>
+            <button class="copy-button" type="button" data-copy="npm i -D trajectory-test-cases">Copy install</button>
+          </div>
+          <p class="micro-proof"><strong>Zero runtime dependencies</strong><span>·</span> ESM + CJS <span>·</span> Typed <span>·</span> MIT</p>
+        </div>
+        <figure class="hero-figure">
+          <div class="figure-label" aria-hidden="true">Fixture → evidence</div>
+          <picture>
+            <source media="(max-width: 640px)" srcset="/assets/evidence-bench-720.webp" />
+            <img src="/assets/evidence-bench-1200.webp" width="1200" height="800" fetchpriority="high" alt="Paper tool-event cards connected by a blue dependency cord, with a red retry mark and green pass tab." />
+          </picture>
+          <figcaption>Partial order keeps the invariant. Nondeterministic prose stays out.</figcaption>
+        </figure>
+      </section>
+
+      <section class="proof-strip" aria-label="What it tests">
+        <p><span aria-hidden="true">✓</span> Required calls</p>
+        <p><span aria-hidden="true">↳</span> Ordering edges</p>
+        <p><span aria-hidden="true">×</span> Forbidden actions</p>
+        <p><span aria-hidden="true">↻</span> Retry counts</p>
+      </section>
+
+      <section class="playground section-grid" id="playground" aria-labelledby="playground-title">
+        <div class="section-intro">
+          <p class="eyebrow"><span>02</span> Local trace bench</p>
+          <h2 id="playground-title">Break a fixture.<br />Read the evidence.</h2>
+          <p>Edit either JSON panel or load a seeded mutation. The same matcher shipped in the npm package runs here, entirely in your browser.</p>
+          <div class="example-buttons" aria-label="Load an example">
+            <button type="button" data-example="pass" aria-pressed="false">Passing trace</button>
+            <button type="button" data-example="missing" aria-pressed="true">Missing call</button>
+            <button type="button" data-example="order" aria-pressed="false">Wrong order</button>
+            <button type="button" data-example="empty" aria-pressed="false">Empty trace</button>
+          </div>
+        </div>
+
+        <div class="bench">
+          <div class="editors">
+            <div class="editor-block">
+              <div class="editor-head"><label for="fixture-input">Fixture</label><span>fixture.json</span></div>
+              <textarea id="fixture-input" spellcheck="false" aria-describedby="fixture-help"></textarea>
+              <span class="visually-hidden" id="fixture-help">JSON fixture defining expected and forbidden tool actions.</span>
+            </div>
+            <div class="editor-block">
+              <div class="editor-head"><label for="events-input">Observed</label><span>events.json</span></div>
+              <textarea id="events-input" spellcheck="false" aria-describedby="events-help"></textarea>
+              <span class="visually-hidden" id="events-help">JSON array of already scrubbed tool events.</span>
+            </div>
+          </div>
+          <div class="run-bar">
+            <p>No network. No model. Same input, same verdict.</p>
+            <button class="run-button" id="run-check" type="button"><span aria-hidden="true">▶</span> Run fixture</button>
+          </div>
+          <section class="trace-panel" aria-labelledby="trace-title">
+            <div class="trace-head">
+              <h3 id="trace-title">Inspection trace</h3>
+              <span id="trace-status" class="status fail">FAIL</span>
+            </div>
+            <div id="trace-output" class="trace-output" aria-live="polite" aria-atomic="true"></div>
+          </section>
+        </div>
+      </section>
+
+      <section class="method" aria-labelledby="method-title">
+        <p class="eyebrow"><span>03</span> A smaller test primitive</p>
+        <h2 id="method-title">Keep only the invariants that matter.</h2>
+        <div class="method-grid">
+          <article><span class="method-number">01</span><h3>Record scrubbed events</h3><p>You supply the argument scrubber. Raw secrets and payloads never enter the trace by default.</p></article>
+          <article><span class="method-number">02</span><h3>Declare partial order</h3><p>Name required actions, attach only meaningful “after” edges, and forbid dangerous calls.</p></article>
+          <article><span class="method-number">03</span><h3>Fail with evidence</h3><p>Get stable exit codes, structured JSON, and a line-by-line trace that explains the mismatch.</p></article>
+        </div>
+      </section>
+
+      <section class="api section-grid" id="api" aria-labelledby="api-title">
+        <div class="section-intro">
+          <p class="eyebrow"><span>04</span> Tiny public surface</p>
+          <h2 id="api-title">One checker.<br />Four tools.</h2>
+          <p>The library is model-agnostic and dependency-free. Use the recorder, matcher, fault injector, or renderer independently.</p>
+          <a class="text-link" href="https://github.com/B-Divyesh/sf-trajectory-test-cases#usage">Read the full API <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="code-window">
+          <div class="code-window-head"><span>agent.test.ts</span><button class="copy-button compact" type="button" data-copy-target="api-code">Copy code</button></div>
+          <pre id="api-code"><code><span class="kw">import</span> {
+  checkTrajectory,
+  createRecorder,
+  injectRetryFault
+} <span class="kw">from</span> <span class="str">"trajectory-test-cases"</span>;
+
+<span class="kw">const</span> trace = createRecorder({
+  scrubArgs: (tool, args) =&gt; redact(args)
+});
+
+<span class="kw">const</span> result = checkTrajectory(
+  fixture,
+  trace.events()
+);
+
+expect(result.pass).toBe(<span class="lit">true</span>);</code></pre>
+        </div>
+      </section>
+
+      <aside class="boundary" aria-labelledby="boundary-title">
+        <span class="boundary-mark" aria-hidden="true">!</span>
+        <div><h2 id="boundary-title">A pass is path evidence—not a safety certificate.</h2><p>Trajectory Test Cases verifies only the actions and ordering you declare. Keep output quality, security, and end-to-end behavior in your wider test strategy.</p></div>
+      </aside>
+    </main>
+
+    <footer>
+      <a class="brand footer-brand" href="/"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>Trajectory<br />Test Cases</span></a>
+      <p>Open fixtures for agent paths.<br />Built by <a href="https://sociobot.in">Sociobot</a>.</p>
+      <nav aria-label="Footer navigation"><a href="https://github.com/B-Divyesh/sf-trajectory-test-cases">GitHub</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+    </footer>
+    <script type="module" src="/src/app.ts"></script>
+  </body>
+</html>

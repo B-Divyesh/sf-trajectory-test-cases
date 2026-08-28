@@ -1,0 +1,9 @@
+{
+  "name": "Trajectory Test Cases",
+  "short_name": "TTC",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F3F0E6",
+  "theme_color": "#F3F0E6",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
