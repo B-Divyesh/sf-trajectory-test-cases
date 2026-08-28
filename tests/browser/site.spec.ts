@@ -53,6 +53,12 @@ test("demo is accessible, keyboard operable, and usable at 390px", async ({ page
   await page.goto("/demo/?demo=1");
   await expect(page.locator("h1")).toHaveText("Test a sample agent tool path.");
   await expect(page.locator("#trace-status")).toHaveText("PASS");
+  const sample = page.locator("#mobile-sample");
+  await expect(sample).toContainText("docs.search");
+  await expect(sample.getByText("PASS", { exact: true })).toBeVisible();
+  const sampleBox = await sample.boundingBox();
+  expect(sampleBox).not.toBeNull();
+  expect((sampleBox?.y ?? Infinity) + (sampleBox?.height ?? Infinity)).toBeLessThanOrEqual(844);
   await page.getByRole("button", { name: "Load missing-call example" }).focus();
   await page.keyboard.press("Enter");
   await expect(page.locator("#trace-status")).toHaveText("FAIL");

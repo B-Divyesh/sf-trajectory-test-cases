@@ -54,6 +54,10 @@ const eventsInput = required<HTMLTextAreaElement>("#events-input");
 const output = required<HTMLElement>("#trace-output");
 const status = required<HTMLElement>("#trace-status");
 const runButton = required<HTMLButtonElement>("#run-check");
+const mobileSample = document.querySelector<HTMLElement>("#mobile-sample");
+const mobileSampleStatus = document.querySelector<HTMLElement>("#mobile-sample-status");
+const mobileSampleEvents = document.querySelector<HTMLElement>("#mobile-sample-events");
+const mobileSampleNote = document.querySelector<HTMLElement>("#mobile-sample-note");
 
 function seed(example: keyof typeof traces): void {
   fixtureInput.value = JSON.stringify(fixture, null, 2);
@@ -92,6 +96,18 @@ function escapeText(value: string): string {
   return node.innerHTML;
 }
 
+function renderMobileSample(result: ReturnType<typeof checkTrajectory>): void {
+  if (!mobileSample || !mobileSampleStatus || !mobileSampleEvents || !mobileSampleNote) return;
+  mobileSampleStatus.textContent = result.pass ? "PASS" : "FAIL";
+  mobileSampleStatus.className = `status ${result.pass ? "pass" : "fail"}`;
+  mobileSampleEvents.innerHTML = result.events.length
+    ? result.events.map((event) => `<span><b aria-hidden="true">${event.status === "matched" ? "●" : "×"}</b> ${escapeText(event.tool)}</span>`).join("")
+    : "<span>No events observed.</span>";
+  mobileSampleNote.textContent = result.pass
+    ? "All declared path invariants matched."
+    : result.failures[0]?.message ?? "This fixture did not pass.";
+}
+
 function run(): void {
   try {
     const result = checkTrajectory(JSON.parse(fixtureInput.value), JSON.parse(eventsInput.value));
@@ -108,11 +124,18 @@ function run(): void {
     const empty = result.events.length === 0 ? '<div class="trace-empty"><strong>No events observed.</strong><span>Add a scrubbed event or load an example to test this fixture.</span></div>' : "";
     const failures = result.failures.map((failure) => `<li><span aria-hidden="true">!</span>${escapeText(failure.message)}</li>`).join("");
     output.innerHTML = `${eventRows}${empty}${failures ? `<ul class="failure-list" aria-label="Failures">${failures}</ul>` : '<p class="pass-note"><span aria-hidden="true">✓</span> All declared path invariants matched.</p>'}`;
+    renderMobileSample(result);
   } catch (error) {
     status.textContent = "INPUT ERROR";
     status.className = "status fail";
     const message = error instanceof Error ? error.message : String(error);
     output.innerHTML = `<div class="trace-error" role="alert"><strong>Could not run this fixture.</strong><span>${escapeText(message)}</span><span>Fix the JSON or load a known example.</span></div>`;
+    if (mobileSampleStatus && mobileSampleEvents && mobileSampleNote) {
+      mobileSampleStatus.textContent = "INPUT ERROR";
+      mobileSampleStatus.className = "status fail";
+      mobileSampleEvents.textContent = "The sample could not run.";
+      mobileSampleNote.textContent = "Fix the JSON or load a known example.";
+    }
   }
   saveDemo();
 }

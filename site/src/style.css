@@ -105,6 +105,7 @@ h1 em { color: var(--signal); font-style: normal; }
 .demo-intro { width: min(1320px, calc(100% - 40px)); margin: 0 auto; padding: clamp(56px, 7vw, 96px) 0 16px; }
 .demo-intro h1 { max-width: 900px; margin-bottom: 20px; font-size: clamp(3rem, 7vw, 6.5rem); }
 .demo-intro > p:last-child { max-width: 60ch; margin-bottom: 0; font-size: 18px; }
+.mobile-sample { display: none; }
 .demo-playground { padding-top: clamp(48px, 6vw, 80px); }
 .section-intro { align-self: start; position: sticky; top: 32px; }
 h2 { margin-bottom: 24px; font-size: clamp(2.5rem, 5vw, 5.25rem); }
@@ -195,6 +196,19 @@ footer nav a { min-height: 44px; display: inline-flex; align-items: center; }
   .topbar nav a { padding-inline: 2px; }
   .theme-toggle { padding-inline: 10px; }
   .hero { padding: 64px 20px 72px; gap: 56px; }
+  .demo-intro { padding: 28px 0 20px; }
+  .demo-intro .eyebrow { margin-bottom: 14px; }
+  .demo-intro h1 { margin-bottom: 14px; font-size: clamp(2.55rem, 12.5vw, 3.4rem); }
+  .demo-intro > p:last-child { margin-bottom: 18px; font-size: 16px; line-height: 1.45; }
+  .mobile-sample { display: block; border: 3px solid var(--line); background: var(--surface); box-shadow: 6px 6px 0 var(--wire); font: 700 12px/1.35 ui-monospace, monospace; }
+  .mobile-sample-head { min-height: 40px; padding: 7px 9px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-bottom: 2px solid var(--line); }
+  .mobile-sample-head strong { text-transform: uppercase; letter-spacing: .04em; }
+  .mobile-sample-head .status { padding: 5px 8px; }
+  .mobile-sample-events { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .mobile-sample-events span { min-height: 34px; padding: 8px; border-bottom: 1px solid color-mix(in srgb, var(--line) 28%, transparent); }
+  .mobile-sample-events span:last-child { grid-column: 1 / -1; border-bottom: 0; }
+  .mobile-sample-events b { color: var(--signal); }
+  .mobile-sample p { margin: 0; padding: 8px; background: var(--acid); color: #171713; font-weight: 800; }
   .hero-action { align-items: flex-start; flex-direction: column; gap: 10px; }
   .demo-banner { position: sticky; align-items: flex-start; flex-direction: column; padding-block: 8px; gap: 4px; }
   .demo-banner div { width: 100%; }

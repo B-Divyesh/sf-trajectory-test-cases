@@ -38,7 +38,12 @@
       <section class="demo-intro" aria-labelledby="demo-title">
         <p class="eyebrow"><span>01</span> Isolated sample</p>
         <h1 id="demo-title">Test a sample agent tool path.</h1>
-        <p>A passing trace is loaded below. Change an event to see the exact mismatch.</p>
+        <p>A passing trace is loaded. Change an event to see the exact mismatch.</p>
+        <section class="mobile-sample" id="mobile-sample" aria-label="Loaded sample result" aria-live="polite" aria-atomic="true">
+          <div class="mobile-sample-head"><strong>Loaded sample</strong><span id="mobile-sample-status" class="status pass">PASS</span></div>
+          <div id="mobile-sample-events" class="mobile-sample-events">Checking the seeded trace.</div>
+          <p id="mobile-sample-note">All declared path invariants matched.</p>
+        </section>
       </section>
       <section class="playground section-grid demo-playground" id="playground" aria-labelledby="playground-title">
         <div class="section-intro">
